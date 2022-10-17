@@ -1,6 +1,6 @@
 ---
 title: My First Blog Post
-date: 2022-10-17 12:00:00 -500
+date: 2022-10-12 12:00:00 -500
 categories: [blog]
 tags: [blog, jekyll, github]
 ---
