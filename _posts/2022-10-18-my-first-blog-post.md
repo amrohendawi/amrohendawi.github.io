@@ -46,11 +46,6 @@ on:
       - LICENSE
 ```
 
-```bash
-sudo apt update && sudo apt upgrade
-```
-
-
 ## Photos
 
 ![img-description](https://pbs.twimg.com/media/FJAFshwXoAEf9HV?format=jpg&name=large)
