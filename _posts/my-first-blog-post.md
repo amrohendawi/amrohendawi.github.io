@@ -18,7 +18,7 @@ print("Hello World!")
 
 I can also write code in a separate file and include it in my blog post.
 
-{% include_relative code.py %}
+<!-- {% include_relative code.py %} -->
 
 This blog post is written in Markdown. I can write **bold** or *italic* text.
 
