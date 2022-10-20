@@ -3,6 +3,7 @@ title: Building a highly scalable real-time network monitoring system with eBPF 
 date: 2022-02-18 00:00:00 -500
 categories: [article]
 tags: [EBPF, XDP, Prometheus, Grafana, Network Monitoring, Real-time, Scalable, High-Performance, Linux]
+images: /assets/images/ebpf-realtime-network-monitoring
 ---
 
 In this article, we will discuss how to build a highly scalable real-time network monitoring system with eBPF & XDP. We will also discuss the challenges we faced while building this system and how we overcame them.
@@ -32,7 +33,8 @@ The Berkeley packet filter eBPF is a recent technology available in the Linux ke
 
 The next figure shows the flow of eBPF programs from execution at user-space to the injection of network tracing points inside the kernel.
 
--![eBPF program flow](\assets\images\ebpf-realtime-network-monitoring\ebpf_user_kernel.drawio.png)
+
+![eBPF program flow]({{page.images | relative_url}}/ebpf_user_kernel.drawio.png)
 
 The eBPF program gets compiled using Low-level virtual machine (LLVM) compiler and then attempts to load the compiled eBPF bytecode into the kernel after passing eBPF verification process first. The eBPF context runs then inside the eBPF virtual machine. The eBPF program is triggered on an event by attaching hooks in the kernel. These hooks are:
 
@@ -47,19 +49,19 @@ The eBPF program gets compiled using Low-level virtual machine (LLVM) compiler a
 
 The eXpress data path XDP is fast programmable packet processing framework in the operating system's kernel. It is the lowest layer of Linux network stack. It allows installing programs that process packets into the Linux kernel. These programs will be called for every incoming packet.
 
-![XDP program flow](\assets\images\ebpf-realtime-network-monitoring\xdp_packet_processing.png)
+![XDP program flow]({{page.images | relative_url}}/xdp_packet_processing.png)
 
 ## System design
 
 The next figure shows the system design of our real-time network monitoring system as a blackbox.
 
-![System design](\assets\images\ebpf-realtime-network-monitoring\software_as_blackbox.drawio.png)
+![System design]({{page.images | relative_url}}/software_as_blackbox.drawio.png)
 
 In our approach, the monitoring system is composed of four abstract layers. The first one is the collection layer. This layer collects measurements from the network when new events occur, pre-processes and standardizes them. The second layer is called reporting. In this layer, measurement data are exported after collection and consumed asynchronously by administrative entities through data exporters. The third layer is where data is managed, stored, and measurements are checked for integrity. Lastly, the presentation layer represents how the user interacts with the system.
 
 According to [Lee et al.](https://www.sciencedirect.com/science/article/abs/pii/S138912861400111X), It is easier to monitor network through visual representations, rather than through numerical data. This is because it is easier to identify issues and potential problems when they are represented visually. Additionally, it can be helpful to see how data flows through the network, and where congestion for instance is occurring.
 
-![Sequence Diagram of the monitoring funcionality from data collection to visualization](\assets\images\ebpf-realtime-network-monitoring\services_sequence_diagram.png)
+![Sequence Diagram of the monitoring funcionality from data collection to visualization]({{page.images | relative_url}}/services_sequence_diagram.png)
 
 ## Software Design
 
@@ -73,7 +75,7 @@ Both modules are scalable and flexible, as they can be deployed on any host mach
 
 The implementation of the MetricCollector uses eBPF tracing programs in a sandbox inside the kernel. These programs inject tracing points in the Linux kernel to track network events and are triggered on events, such as TCP connections, and process creations. eBPF programs allow reading the collected measurements from the user space, either by sending details per event or by accumulating the data and passing them via the BPF map asynchronously. BPF maps can support arrays, associative arrays, and histograms, and are suitable for passing summary statistics. The next figure illustrates how the eBPF program collaborates with the DataExporter to publish real-time network measurements from the kernel-space. These two components work in parallel.
 
-![eBPF packet filtering and data exporting activity diagram](\assets\images\ebpf-realtime-network-monitoring\activity_uml_packet_filtering.png)
+![eBPF packet filtering and data exporting activity diagram]({{page.images | relative_url}}/activity_uml_packet_filtering.png)
 
 There is a variety of programming languages and frameworks to create eBPF programs, one of which is BCC. BCC is a library used to create Berkeley Packet Filter (eBPF) programs that analyze network and OS performance without incurring overhead or posing security threats. BCC eliminates the necessity for users to know deep technical details about eBPF, and provides many ready-to-use starting points, such as the bcc-tools package containing pre-created eBPF programs. Additionally, BCC offers a Clang compiler capable of compiling BPF code at runtime, which facilitates development of maintainable BPF applications designed to be compatible with kernel changes. BCC allows writing eBPF programs in many languages such as C, C++, Python, Lua and go.
 
@@ -120,16 +122,16 @@ The visualization module is a combination of Prometheus server, Grafana, and dat
 
 The MonitoringServer component stores the polled metrics from the DataExporter menitoned earler in a realational database suitable for time series using HTTP pulls. The MonitoringServer also has basic visualization service over its dashboard. Grafana service representing the Visualization component requests the stored metrics from the MonitoringServer and provides various, more advanced charts, flexible queries, realtime alerts, and other features through user-interface. Three sub-parts make up the MonitoringServer: Storage management, data retrieval, and a user-friendly dashboard as visualized below.
 
-![Prometheus dashboard showing all connected resources of metrics](\assets\images\ebpf-realtime-network-monitoring\prometheus.png)
+![Prometheus dashboard showing all connected resources of metrics]({{page.images | relative_url}}/prometheus.png)
 
 
 The visualization module combines Prometheus and Grafana services as their underlying MonitoringServer component. Prometheus processes, stores, queries real-time and long term metrics data while Grafana provides a powerful and flexible dashboards and data visualization solution for data aggregated in Prometheus. Furthermore, the database component for this module is a persistent temporal database. This module has the ability to export collected metrics to third-party applications.
 
-![Grafana dashboard with example graphs plotting real-time data](\assets\images\ebpf-realtime-network-monitoring\grafana.png)
+![Grafana dashboard with example graphs plotting real-time data]({{page.images | relative_url}}/grafana.png)
 
 [Grafana](https://grafana.com/) is an open-source analytics and interactive visualization tool. It provides web charts, graphs, and alerts based on data from supported sources. Grafana comes with a built-in MySQL data source plugin. This allows the user to easily design graphs by querying and visualizing data from MySQL compatible databases.
 
-![Creating a new panel in Grafana](\assets\images\ebpf-realtime-network-monitoring\grafana_new_panel.png)
+![Creating a new panel in Grafana]({{page.images | relative_url}}/grafana_new_panel.png)
 
 
 ## Evaluation
@@ -190,7 +192,7 @@ The first benchmark evaluates the stability and accuracy of the latency measurem
 
 In the first part of this test, a testbed consisting of two native machines connected to a local network is set up. The monitoring node sends 100 ping requests to Node1 at a rate of one request per 3 seconds in order to measure the round trip time (RTT) of the connection. For latency measurement, an example MetricCollector program based on eBPF is implemented similar to ping program for comparison. The test was repeated multiple times to evaluate the test results for rebustness. The figure below shows that the proposed approach using eBPF provides approximately 5 times lower latency than that of ping.
 
-![Latency comparison of eBPF example MetricCollector with non-eBPF based solution running on testbed setup](\assets\images\ebpf-realtime-network-monitoring\latency_1node_native.png)
+![Latency comparison of eBPF example MetricCollector with non-eBPF based solution running on testbed setup]({{page.images | relative_url}}/latency_1node_native.png)
 
 Here's a table with mean times collected for every iteration of the tests in milliseconds.
 
@@ -214,11 +216,11 @@ As a first testbed, docker containers running light Linux alpine images are used
 
 The table above shows that GCP and Docker produce similar results. eBPF MetricCollector provides latency measurements about 7 times faster than ping in both testbeds. The standard deviation of ping is 2 times higher in the GCP testbed and 3 times higher in the Docker testbed, respectively. Using native machines for real-world testbed evaluation, the difference in performance rises significantly. The results of eBPF remain relatively constant. However, ping measurements vary greatly.
 
-![GCP](\assets\images\ebpf-realtime-network-monitoring\latency_gcp.png)
+![GCP]({{page.images | relative_url}}/latency_gcp.png)
 
-![DOCKER](\assets\images\ebpf-realtime-network-monitoring\latency_docker.png)
+![DOCKER]({{page.images | relative_url}}/latency_docker.png)
 
-![Native](\assets\images\ebpf-realtime-network-monitoring\latency_native.png)
+![Native]({{page.images | relative_url}}/latency_native.png)
 
 
 ### Hardware utilization evaluation
@@ -227,7 +229,7 @@ This benchmark evaluates the resources utilization of the tool. It measures how 
 
 As visualized in the figure below, prometheus uses 16.40% of the CPU, while node_exporter - a non-eBPF metrics exporter - accounts for 34.57% Meanwhile, the MetricsExporter marked in green box on the left side with the MetricCollector running in eBPF VM marked in green box on the right side use together only 5.56% of the CPU. Based on these results the MetricsExporter utilizing eBPF utilizes almost 7 times less CPU compared to node_exporter. However, node_exporter collects a greater number of metrics. Most profilers cannot trace the full stack of XDP programs. However, the XDP packet dropper running on the LLVM can still be traced on the left side marked in green.
 
-![Flamegraph](\assets\images\ebpf-realtime-network-monitoring\flamegraph.drawio.png)
+![Flamegraph]({{page.images | relative_url}}/flamegraph.drawio.png)
 
 
 ## Conclusion
