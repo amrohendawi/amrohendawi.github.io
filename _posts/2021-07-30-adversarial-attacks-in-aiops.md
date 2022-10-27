@@ -67,7 +67,7 @@ According to Goodfellow et al., the `FGSM` involves adding non-random noise of t
 As a result of the linear design of the model, the influence of disturbance in the neural network will gradually grow larger. This is the underlying reason for `FGSM` attacking the neural network. Furthermore, ReLU is a kind of linear activation function in neural networks, which tends to make the whole network linear. Additionally, the more dimensions of input, the more at risk for adversarial attacks the model will be.
 This method is also used to generate adversarial examples against ML models that perform time series classification `TSC` {% cite fawaz2019adversarial --file adversarial_attacks_in_aiops %} as in the figure below.
 
-![FGSM adversarial attack]({{page.images | relative_url}}/time_series_misclassification.png)
+![FGSM adversarial attack]({{page.images | relative_url}}/time_series_misclassification.png){:width="70%"}
 *A fast gradient sign method (FGSM) example of perturbing the classification of input time series by adding imperceptible noise {% cite fawaz2019adversarial --file adversarial_attacks_in_aiops %}*
 
 
@@ -143,7 +143,7 @@ The figure below shows the architecture of the proposed model.
 To test the efficacy of their proposed work, adversarial time series examples were generated using `FGSM` method in order to attack their model that is trained on Coffee dataset. To compare the results, another ResNet model is implemented without the encoder-decoder part and trained on the same dataset.
 The next figure shows that the encode-decode model improves the accuracy of attacks by the `FGSM`.
 
-![encoder-decoder results]({{page.images | relative_url}}/encode_decoder_res.png)
+![encoder-decoder results]({{page.images | relative_url}}/encode_decoder_res.png){:width="70%"}
 *The accuracy results of the Coffee dataset when used with the encode-decode model as a preprocessing method for defense `FGSM` attacks*
 
 ## Conclusion
