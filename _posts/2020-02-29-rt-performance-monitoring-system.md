@@ -133,7 +133,8 @@ We should see RT-PREEMPT in the output.
 ![Checking Linux kernel for RT kernel patch]({{page.images | relative_url}}/uname_v.png){:width="60%"}
 *Checking Linux kernel for RT kernel patch*
 
-most applications and end-users do not need an operating system patched with Preempt-RT, but for the applications that have critically intolerable deadline the patch is a must do in order to make sure deadlines are not passed.
+Most applications and end-users do not need an operating system patched with Preempt-RT, but for the applications that have critically intolerable deadline the patch is a must do in order to make sure deadlines are not passed.
+Many linux distributions today already support RT out of the Box.
 
 ## Results
 
@@ -168,7 +169,6 @@ We then tried a 3D surface graph, but it was very slow and did not improve the d
 ### Data Collection over virtual machines
 
 Both Linux images were tested running directly over hardware without middleman as well as on top of virtual machine. Latency readings were collected using the last version of data source module with exactly the same given parameters.
-
 The following plots show the amount of finished tasks on y axis at a specific latency point on the x axis (in other words time taken to finish the given task).
 
 ![Comparing 5 seconds of Latency readings on stock Ubuntu 18.04 running native vs. virtual machine]({{page.images | relative_url}}/comparison_nonrt_vm.png)
@@ -176,6 +176,10 @@ The following plots show the amount of finished tasks on y axis at a specific la
 As we can clearly see from the figure above Ubuntu running on virtual machine gains no control over Hardware.
 The used virtual machine in this test is Oracle VM Version 6.1.0 with default settings.
 
+
+The next two figures show the efficacy of the RT patch between RT patched Ubuntu 18.04 and Windows OS.
+
+![Comparing 5 seconds of Latency readings on RT patched Ubuntu 18.04 running native ]({{page.images | relative_url}}/latency_linux.png) | ![Comparing 5 seconds of Latency readings on Windows 10 running native ]({{page.images | relative_url}}/latency_windows.png)
 
 ## Conclusion
 
