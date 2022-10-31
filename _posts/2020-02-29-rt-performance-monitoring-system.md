@@ -1,22 +1,22 @@
 ---
-title: Real-time performance monitoring system with Flask + Cyclictest + Plotly
+title: Real-time performance monitoring system with Flask + `Cyclictest` + Plotly
 date: 2020-02-29 00:00:00 -500
 categories: [blog]
-tags: [DevOps, Flask, Cyclictest, Plotly, Python, Linux, Performance, Monitoring, Real-time, Docker, C, C++, Bash, Shell]
+tags: [DevOps, Flask, Cyclictest, Plotly, Python, Linux, Performance, Monitoring, Real-time, Docker, C, C++, Bash, Shell, RTC]
 images: /assets/images/rt-performance-monitoring-system
 ---
 
 ## Introduction
 
-Real-time computing (RTC), or reactive computing is the computer science term for hardware and software systems subject to a ”real-time constraint”, for example from event to system response. Real-time programs must guarantee response within specified time constraints, often referred to as ”dead- lines”.
+Real-time computing (RTC), or reactive computing is the computer science term for hardware and software systems subject to a ”real-time constraint”, for example from event to system response. Real-time programs must guarantee response within specified time constraints, often referred to as ”dead-lines”.
 
-In this blog we implement a data collection and aggregation program for real-time performance monitoring system. The program is written in Python and uses Flask as a web framework. The program collects data from cyclictest and feeds it to Plotly for real-time visualization. The program is packaged as a Docker container and can be deployed on any Linux machine.
+In this blog we implement a data collection and aggregation program for real-time performance monitoring system. The program is written in Python and uses Flask as a web framework. The program collects data from `cyclictest` and feeds it to Plotly for real-time visualization. The program is packaged as a Docker container and can be deployed on any Linux machine.
 
 First, we demonstrate the design of the program. Then, we list the technologies used in this project. Finally, we conclude with a discussion of the results and future work.
 
 ## Design
 
-The program is designed to collect data from cyclictest and feed it to Plotly for real-time visualization. The program is packaged as a Docker container and can be deployed on any Linux machine.
+The program is designed to collect data from `cyclictest` and feed it to Plotly for real-time visualization. The program is packaged as a Docker container and can be deployed on any Linux machine.
 
 ![RT performance monitoring system design]({{page.images | relative_url}}/design.png)
 *RT performance monitoring system design as a docker-compose flow chart*
@@ -66,7 +66,7 @@ The data visualization is done using Plotly. Plotly is a data visualization libr
 The data source consists of two parts, the data generator and the data sender.
 The data generator is written in C and is mostly based on the infamous open-source software [cyclictest](https://command-not-found.com/cyclictest) to generate latency measurements from targeted processor cores for a certain amount of time and outputs the data in a file aligned in columns according to the logical core's number and sorted ascending by latency.
 
-Cyclictest is a tool for measuring the latency of a system under a cyclic workload. Cyclictest is a C program that uses the POSIX real-time API to schedule a thread with a fixed priority. The thread then runs a loop that sleeps for a fixed interval and then measures the time it takes to wake up.
+Cyclictest is a tool for measuring the latency of a system under a cyclic workload. `Cyclictest` is a C program that uses the `POSIX` real-time API to schedule a thread with a fixed priority. The thread then runs a loop that sleeps for a fixed interval and then measures the time it takes to wake up.
 
 The data sender is Python-based and it's job is to slice off each columns of the outputted data at a time, marshall it in a JSON formatted package and sends it afterwards to the REST API according to the specified protocols.
 
@@ -78,9 +78,9 @@ That's why the data-source takes a minor sleep gap while switching from RT to NR
 
 ### Data Storage
 
-The collected real-time data is stored in an InfluxDB database. InfluxDB is an open-source time series database designed to handle high write and query loads. InfluxDB is ideal for storing time series data, such as sensor data, application metrics, and real-time performance monitoring data.
-InfluxDB is a Go program that uses a custom query language called InfluxQL. InfluxDB is packaged as a Docker container and can be deployed on any Linux machine.
-Furthermore, InfluxDB has a huge community and is well documented. This is why we chose InfluxDB as our data storage solution.
+The collected real-time data is stored in an  `InfluxDB`  database.  `InfluxDB`  is an open-source time series database designed to handle high write and query loads.  `InfluxDB`  is ideal for storing time series data, such as sensor data, application metrics, and real-time performance monitoring data.
+ `InfluxDB`  is a Go program that uses a custom query language called InfluxQL.  `InfluxDB`  is packaged as a Docker container and can be deployed on any Linux machine.
+Furthermore,  `InfluxDB`  has a huge community and is well documented. This is why we chose  `InfluxDB`  as our data storage solution.
 
 ## Patching Linux Kernel for Real-time
 
@@ -97,6 +97,10 @@ First, we need to install the Linux kernel headers:
 ```
 
 Next, we download and unpack the linux kernel source code. In our case the kernel version is 5.0.19.
+
+> Make sure to replace the kernel version with the one you are using.
+{: .prompt-danger }
+
 
 ```bash
     mkdir rtlinux && cd rtlinux
@@ -134,13 +138,15 @@ We should see RT-PREEMPT in the output.
 *Checking Linux kernel for RT kernel patch*
 
 Most applications and end-users do not need an operating system patched with Preempt-RT, but for the applications that have critically intolerable deadline the patch is a must do in order to make sure deadlines are not passed.
-Many linux distributions today already support RT out of the Box.
+
+> Many linux distributions today already support RT out of the Box.
+{: .prompt-tip }
 
 ## Results
 
-The results of the project are shown in the following graphs. The graphs show the latency of the system under a cyclic workload. The workload is generated by cyclictest and the latency is measured by cyclictest. The latency is measured for 10 seconds and the data is sent to the REST API every 100 milliseconds. The data is then stored in InfluxDB and visualized using Plotly.
+The results of the project are shown in the following graphs. The graphs show the latency of the system under a cyclic workload. The workload is generated by `cyclictest` and the latency is measured by cyclictest. The latency is measured for 10 seconds and the data is sent to the REST API every 100 milliseconds. The data is then stored in  `InfluxDB`  and visualized using Plotly.
 
-![Latency graph]({{page.images | relative_url}}/latency.png){:width="60%"}
+<!-- ![Latency graph]({{page.images | relative_url}}/latency.png){:width="60%"} -->
 
 ## Challenges
 
@@ -188,3 +194,11 @@ In conclusion RT-systems aren't essential for everybody but they have a huge imp
 Running the data aggregation module on different operating systems gives entirely different results. When running the module on virtual machines or docker the data-source part does not get full control on hardware resources which leads to stagnation when plotting the results as previously illustrated in latency diagrams.
 
 Although virtual machines can send signals to the main kernel in order to gain privileged access to some resources but that does not grant full control of certain resources since it isn't fully dedicated to the virtual machine and a higher Hypervisor isn't authorized to control lower Hypervisor in operating systems architectures.
+
+## References
+
+[Source code](https://github.com/amrohendawi/rt-performance-monitoring)
+[RT-Preempt](https://www.kernel.org/doc/html/latest/process/rt-preempt.html)
+[Cyclictest](https://command-not-found.com/cyclictest)
+[ `InfluxDB` ](https://www.influxdata.com/)
+[Plotly](https://plot.ly/)
