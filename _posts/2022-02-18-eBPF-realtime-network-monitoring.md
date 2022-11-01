@@ -28,7 +28,11 @@ Industry 4.0 aims at increasing the efficiency of the manufacturing process. It 
 
 In order to meet the requirements of the smart factory, the next-generation network monitoring systems should also be able to provide real-time network monitoring at scale. The next-generation network monitoring systems should also be able to provide network monitoring at the required level of granularity. The next-generation network monitoring systems should also be able to provide network monitoring at the required level of accuracy.
 
-## the extended Berkeley Packet Filter (eBPF)
+## Related Work
+
+In this section, we will discuss the related work that facilitated this project. We will also discuss the challenges that are faced by the existing solutions.
+
+### the extended Berkeley Packet Filter (eBPF)
 
 The Berkeley packet filter eBPF is a recent technology available in the Linux kernel, which extends the user capabilities to control kernel-level activities. It is an instruction set and an execution environment inside the Linux kernel, enabling modification, interaction, and kernel programmability at runtime. The eBPF-based packet tracing is utilized for monitoring tasks and network traffic in real-time. Although it is commonly used for building proof-of-concept applications, it has proven to be challenging to extend those applications to more complex functionality due to its limitations {% cite miano --file thesis %}. eBPF allows user-space applications to inject code in the kernel at runtime, i.e., without recompiling the kernel or installing any optional kernel module. This results in a more efficient system.
 
@@ -47,14 +51,14 @@ The eBPF program gets compiled using Low-level virtual machine (LLVM) compiler a
   * perf events: Similar to tracepoints, but instead of logging information, the eBPF program is executed when a perf event is triggered.
 
 
-## The extended datagram packet interface (XDP)
+### The extended datagram packet interface (XDP)
 
 The eXpress data path XDP is fast programmable packet processing framework in the operating system's kernel. It is the lowest layer of Linux network stack. It allows installing programs that process packets into the Linux kernel. These programs will be called for every incoming packet.
 
 ![XDP program flow]({{page.images | relative_url}}/xdp_packet_processing.png)
 *XDP packet processing overview*
 
-## Packet filtering in Linux machines
+### Packet filtering in Linux machines
 
 Packet filtering is a basic layer of security for networks that controls which traffic is allowed to pass through. By allowing or denying certain packets, packet filtering can help protect networks from unauthorized access and attacks.
 Packet filtering can be done at different stages on a network, from the physical interface to the application. {% cite dominik --file thesis %} divides packet filtering into four levels, from the lowest in abstraction to the highest:
@@ -99,7 +103,7 @@ The DataAggregator module collects network metrics and the DataVisualizer module
 
 Both modules are scalable and flexible, as they can be deployed on any host machine.
 
-## Real-time data collection
+### Real-time data collection
 
 The implementation of the MetricCollector uses eBPF tracing programs in a sandbox inside the kernel. These programs inject tracing points in the Linux kernel to track network events and are triggered on events, such as TCP connections, and process creations. eBPF programs allow reading the collected measurements from the user space, either by sending details per event or by accumulating the data and passing them via the BPF map asynchronously. BPF maps can support arrays, associative arrays, and histograms, and are suitable for passing summary statistics. The next figure illustrates how the eBPF program collaborates with the DataExporter to publish real-time network measurements from the kernel-space. These two components work in parallel.
 
@@ -108,11 +112,11 @@ The implementation of the MetricCollector uses eBPF tracing programs in a sandbo
 
 There is a variety of programming languages and frameworks to create eBPF programs, one of which is BCC. BCC is a library used to create Berkeley Packet Filter (eBPF) programs that analyze network and OS performance without incurring overhead or posing security threats. BCC eliminates the necessity for users to know deep technical details about eBPF, and provides many ready-to-use starting points, such as the bcc-tools package containing pre-created eBPF programs. Additionally, BCC offers a Clang compiler capable of compiling BPF code at runtime, which facilitates development of maintainable BPF applications designed to be compatible with kernel changes. BCC allows writing eBPF programs in many languages such as C, C++, Python, Lua and go.
 
-## Active probing
+### Active probing
 
 Active probing is necessary to fill the gaps when less information about the network status is available because of lower traffic volume, as Lee's work states. Active probing is essential in order to guarantee up-to-date real-time monitoring capabilities. Active probing is done by the PacketSampler. The MetricCollector informs the PacketSampler to create probe packets and send it to host node similar to pinging via ICMP packets. The MetricCollector collects network measurements such as latency, RTT, and jitter of the packets sent by the PacketSampler and the acknowledgment received back. These packets can be then dropped by the XDP-packetDrop component to save bandwidth within the network stacks and hardware resources by reducing the number of context switches in CPU.
 
-## Real-time data exporter
+### Real-time data exporter
 
 The DataExporter publishes up-to-date network metrics ready for external service to scrape asynchronously. The DataExporter uses Prometheus open source Monitoring framework to expose the metrics. Prometheus has a large ecosystem of off-the-shelf exporters. Prometheus exporters provide an interface between Prometheus and applications that don’t export metrics in the Prometheus format. A good example is the node exporter, which exposes Linux metrics in Prometheus format. Another popular example is cAdvisor, which exports metrics from containers. An external service such as a Prometheus monitoring server reads the metrics exposed by the target using a simple text-based exposition format. When no exporter that fits the application needs is found, Prometheus provides client libraries that can be used to develop a custom exporter that translates the metrics in [Prometheus](https://prometheus.io/) format. There are official client libraries in go, python, java, and ruby. Additional unofficial client libraries for other programming languages can be also found [here](https://prometheus.io/docs/instrumenting/exporters/).
 
@@ -145,7 +149,7 @@ metric_z 397
 .
 ```
 
-## Visualization
+### Visualization
 
 The visualization module is a combination of Prometheus server, Grafana, and database in a multi-container application. Docker-compose defines the protocol and communication between the containers. Additional metrics exporters can be implemented whether in the same docker-compose file containing the DataVisualizer module or externally and binded later with the monitoring server represented in Prometheus server. The endpoint host `docker.internal` exports the collected metrics from the eBPF-based implementation and exposes it to docker containers to scrape from the host machine
 
