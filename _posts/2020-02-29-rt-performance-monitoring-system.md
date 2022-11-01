@@ -1,8 +1,8 @@
 ---
-title: Real-time performance monitoring system with Flask + `Cyclictest` + Plotly
+title: Real-time performance monitoring system with Flask + Cyclictest + Plotly
 date: 2020-02-29 00:00:00 -500
 categories: [blog]
-tags: [DevOps, Flask, Cyclictest, Plotly, Python, Linux, Performance, Monitoring, Real-time, Docker, C, C++, Bash, Shell, RTC]
+tags: [DevOps, Flask, Cyclictest, Plotly, Python, Linux, Performance, Monitoring, Real-time, Docker, C++, Bash, Shell, RTC]
 images: /assets/images/rt-performance-monitoring-system
 ---
 

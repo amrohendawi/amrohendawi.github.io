@@ -1,5 +1,5 @@
 ---
-title: Building a full-fledged German/English chatbot-powered bookstore with Rasa
+title: Full-fledged bookstore with German/English chatbot Rasa + Vue.js
 date: 2022-02-10 00:00:00 -500
 categories: [blog]
 tags: [Rasa, NLP, AI, Chatbot, Python, Docker, Vue.js, JavaScript, CSS, HTML, NginX, Swagger, SpaCy, Prodigy, Transformers, BERT, German, English]
@@ -18,19 +18,17 @@ The potential applications of chatbots are vast and varied. In this work, a chat
 ![Demo]({{page.images | relative_url}}/order_history_demo.gif)
 *Demo of checking the order history after an order has been placed through the chatbot*
 
+[Source code](https://github.com/amrohendawi/Bookstore-chatbot)
 
 ## Introduction
 
-Chatbots are computer programs designed to simulate conversation with human users. They use natural language processing and sentiment analysis to communicate in human language. Chatbots are more friendly and attractive to users than the static content search in FAQs lists {% cite costa2018conversing --file bookstore_chatbot %}.
-Chatbots offer users comfortable and efficient assistance when communicating with them by providing more engaging answers and directly responding to their problems. The degree of trust a chatbot gains from its use depends on factors related to its behavior and appearance, as well as factors related to its maker, privacy, and protection.
+Chatbots are computer programs designed to simulate conversation with human users. They use natural language processing and sentiment analysis to communicate in human language. Chatbots are more friendly and attractive to users than the static content search in FAQs lists {% cite costa2018conversing --file bookstore_chatbot %}. Chatbots offer users comfortable and efficient assistance when communicating with them by providing more engaging answers and directly responding to their problems.
 
-Chatbots have been used for increasingly complex tasks, including notifications and simple conversations. In the last decade, chatbots have been used primarily for notifications, where no interaction occurs between the user and the bot, with the bot simply displaying messages and announcements. In the next stage of the assistant, the chatbot can interact with the user in various ways and have a simple conversation {% cite Rasahistory --file bookstore_chatbot %}.
+Chatbots have been used for increasingly complex tasks, including notifications and simple conversations. In the last decade, chatbots have been used primarily for notifications, where no interaction occurs between the user and the bot, with the bot simply displaying messages and announcements. In the next stage of the assistant, the chatbot can interact with the user in various ways and have a simple conversation {% cite rasahistory --file bookstore_chatbot %}.
 
-In this work, a chatbot is implemented to automate an e-book store in order to provide customers with a more convenient and efficient shopping experience. By using chatbots, users are able to easily find books that match their search criteria and place orders efficiently. Additionally, a chatbot can provide customers with recommendations for books based on their interests. 
-
-The underlying web application of the e-bookstore is based on the Vue.js 2.0 web framework, using Node.js and MongoDB as backend technology. The application is implemented in the form of a set of microservices running in Docker containers and has an API implemented with Swagger.
-The chatbot was implemented in Rasa, an open source framework which is supported by a large community.
-For Natural Language Processing, the spaCy library was used, which assists in syntactic analysis and the understanding of human language.
+In this work, a chatbot is implemented to automate an e-book store in order to provide customers with a more convenient and efficient shopping experience.
+The chatbot was implemented in Rasa, an open source framework which is supported by a large community. For Natural Language Processing, the spaCy library was used, which assists in syntactic analysis and the understanding of human language.
+The underlying web application of the e-bookstore is based on the `Vue.js` 2.0 web framework, using Node.js and MongoDB as backend technology. The application is implemented in the form of a set of microservices running in Docker containers and has an API implemented with Swagger.
 
 The chatbot consists of the following components:
  - **Rasa Core:** The main component of the Rasa stack. It takes care of all the messaging and dialogue management.
@@ -122,8 +120,9 @@ Each framework has its own strengths and weaknesses.
 
 ### Natural Language Processing (NLP)
 
-NLP is a branch of artificial intelligence that deals with the interaction between computers and human languages. It is used to process and analyze large amounts of natural language data. NLP is used in a variety of applications, including chatbots, voice recognition, and natural language understanding.
-To build the NLP pipeline for the chatbot, we used the spaCy library, which is a free, open-source library for advanced natural language processing in Python. It is designed specifically for production use and helps to build applications that process and "understand" large volumes of text.
+NLP is a branch of AI that deals with the interaction between computers and human languages. It is used to process and analyze large amounts of natural language data. NLP is used in a variety of applications, including chatbots, voice recognition, and natural language understanding.
+
+To build the NLP pipeline for the chatbot, we used the spaCy library. This is a free, open-source library for advanced natural language processing in Python. It is designed specifically for production use and helps to build applications that process and "understand" large volumes of text.
 
 [SpaCy](https://spacy.io/) is a newer framework, and it has gained popularity because of its ease of use and simplicity. In comparison with Stanford CoreNLP, it has several advantages, including faster and more memory-efficient operation and better documentation. Unlike CoreNLP, spaCy also includes a machine learning-based part-of-speech tagger.
 Moreover, spaCy integrates very well with chatbot frameworks such as Rasa and provides satisfactory results.
@@ -154,7 +153,7 @@ The e-bookstore is implemented as a set of microservices running in Docker conta
 ### E-bookstore Service
 
 There are several different web stacks that can be used when building an e-commerce store. One popular one is the LAMP stack, which stands for Linux, Apache, MySQL, and PHP. It gained popularity because it is open source.
-Another web stack worth mentioning is the MEVN stack, which stands for MongoDB, Express.js, Vue.js, and Node.js.
+Another web stack worth mentioning is the MEVN stack, which stands for MongoDB, Express.js, `Vue.js`, and Node.js.
 This stack is popular because of its modularity and since it allows for more flexibility when building an e-commerce store.
 MEVN allows developers to build faster and more efficient applications.
 
@@ -241,11 +240,11 @@ The following table shows empirical results of the NLU shell. The NLP pipeline p
 |User input|Detected intent|Sentiment|Language detection|
 |:---|:---|:---|:---|
 |Ich möchte gerne ein Buch bestellen.|order:0.723|neg: 0.0 <br> neu: 0.649 <br> pos: 0.351|de: 0.998|
-|Das ist genau was ich gesucht habe, vielen Dank =)|mood\_great: 0.994|neg: 0.0 <br> neu: 0.597 <br> pos: 0.403|de: 0.993|
+|Das ist genau was ich gesucht habe, vielen Dank =)|mood_great: 0.994|neg: 0.0 <br> neu: 0.597 <br> pos: 0.403|de: 0.993|
 |Bitte Bücher unter 15€ anzeigen.|filter: 0.999|neg: 0.0 <br> neu:1.0 <br> pos:0.0|de: 0.996|
-|Wird die Bestellung am Freitag in Mannheim ankommen?|ask\_about\_delivery: 0.857|neg: 0.0 <br> neu :1.0 <br> pos: 0.0|de: 0.890|
-|Spreche ich mit einem Menschen oder einen chatbot?|bot\_challenge: 0.992|neg: 0.0 <br> neu: 1.0 <br> pos: 0.0|de: 0.999|
-|Wo gibt es das beste Essen in Berlin?|out\_of\_scope: 0.997|neg: 0.0 <br> neu: 0.693 <br> pos: 0.307|de: 0.957|
+|Wird die Bestellung am Freitag in Mannheim ankommen?|ask_about_delivery: 0.857|neg: 0.0 <br> neu :1.0 <br> pos: 0.0|de: 0.890|
+|Spreche ich mit einem Menschen oder einen chatbot?|bot_challenge: 0.992|neg: 0.0 <br> neu: 1.0 <br> pos: 0.0|de: 0.999|
+|Wo gibt es das beste Essen in Berlin?|out_of_scope: 0.997|neg: 0.0 <br> neu: 0.693 <br> pos: 0.307|de: 0.957|
 |Das sind nicht die richtigen Filter... :'-(|affirm: 0.520|neg: 0.528 <br> neu: 0.472 <br> pos: 0.0|de: 0.998|
 
 ## E-bookstore overview
@@ -272,7 +271,7 @@ The code of the generated node.js server is then extended to fit the e-bookstore
 To ensure data persistency, the backend server saves the books and orders in a MongoDB database instance.
 This ensures that even if the web application crashes, the data will still be available and easy to recover.
 
-Additionally, a web application representing the user interface was designed using the JavaScript frontend framework Vue.js. The web application also uses HTML and CSS for styling.
+Additionally, a web application representing the user interface was designed using the JavaScript frontend framework `Vue.js`. The web application also uses HTML and CSS for styling.
 Both backend and frontend parts communicate via API calls according to the API documentation implemented earlier with swagger.
 The web application also contains a chatbot frontend widget, which is configured to connect to the Rasa chatbot server.
 Additionally, an nginx reverse proxy serves as a middleware between frontend and backend communications to avoid Cross-origin resource sharing (cors) issues.
@@ -282,7 +281,7 @@ Additionally, an nginx reverse proxy serves as a middleware between frontend and
 
 ## Conclusion
 
-In this paper, a practical integration of a chatbot service into an e-book store was presented. The solution provides users with a more interactive way of using the e-store.
+In this article, a practical integration of a chatbot service into an e-book store was presented. The solution provides users with a more interactive way of using the e-store.
 The chatbot service was utilized to provide users with information about each book, such as the summary, reviews, and ratings. In addition, functionalities were integrated into the chatbot framework to help users find the right book based on their preferences. Information about the status of an order and delivery times can also be requested by the user. 
 
 The concept of the e-bookstore supporting chatbot service aims at service-oriented and containerized architecture that runs on virtual hardware. The containerization of software using docker provides scalability and portability benefits to software development teams.
