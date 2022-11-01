@@ -30,7 +30,7 @@ In order to meet the requirements of the smart factory, the next-generation netw
 
 ## the extended Berkeley Packet Filter (eBPF)
 
-The Berkeley packet filter eBPF is a recent technology available in the Linux kernel, which extends the user capabilities to control kernel-level activities. It is an instruction set and an execution environment inside the Linux kernel, enabling modification, interaction, and kernel programmability at runtime. The eBPF-based packet tracing is utilized for monitoring tasks and network traffic in real-time. Although it is commonly used for building proof-of-concept applications, it has proven to be challenging to extend those applications to more complex functionality due to its limitations[p8]. eBPF allows user-space applications to inject code in the kernel at runtime, i.e., without recompiling the kernel or installing any optional kernel module. This results in a more efficient system.
+The Berkeley packet filter eBPF is a recent technology available in the Linux kernel, which extends the user capabilities to control kernel-level activities. It is an instruction set and an execution environment inside the Linux kernel, enabling modification, interaction, and kernel programmability at runtime. The eBPF-based packet tracing is utilized for monitoring tasks and network traffic in real-time. Although it is commonly used for building proof-of-concept applications, it has proven to be challenging to extend those applications to more complex functionality due to its limitations {% cite miano --file thesis %}. eBPF allows user-space applications to inject code in the kernel at runtime, i.e., without recompiling the kernel or installing any optional kernel module. This results in a more efficient system.
 
 The next figure shows the flow of eBPF programs from execution at user-space to the injection of network tracing points inside the kernel.
 
@@ -54,6 +54,29 @@ The eXpress data path XDP is fast programmable packet processing framework in th
 ![XDP program flow]({{page.images | relative_url}}/xdp_packet_processing.png)
 *XDP packet processing overview*
 
+## Packet filtering in Linux machines
+
+Packet filtering is a basic layer of security for networks that controls which traffic is allowed to pass through. By allowing or denying certain packets, packet filtering can help protect networks from unauthorized access and attacks.
+Packet filtering can be done at different stages on a network, from the physical interface to the application. {% cite dominik --file thesis %} divides packet filtering into four levels, from the lowest in abstraction to the highest:
+
+ 1. Hardware layer: This is the lowest level of packet filtering. It is done by the network interface card (NIC) and is the first line of defense against malicious traffic. It is the most efficient way to filter packets, but it is also the most limited in terms of functionality.
+ 2. Network layer: This is the second level of packet filtering. It is done by the network stack of the operating system. It is more flexible than the hardware layer, but it is also less efficient.
+ 3. System layer: This is the third level of packet filtering. It is done by the system's firewall. It is more flexible than the network layer, but it is also less efficient.
+ 4. Application layer: This is the highest level of packet filtering. It is done by the application. It is the most flexible, but it is also the least efficient.
+
+![Levels of packet filtering]({{page.images | relative_url}}/packet_filtering.png){: width="60%"}
+*Layers of packet filtering*
+
+The work of {% cite bertrone2018accelerating --file thesis %} showed that packet filtering with \ac{EBPF} has significant performance benefits over standard `OS` tools such as `IPTables`.
+This reduces the computational overhead and bandwidth consumption.
+Packet filtering is important in monitoring deterministic RT networks because it allows for the inspection of packets as they are transmitted on the network, helping to reduce resources overhead due to unnecessary packets or redundant requests.
+
+![bpf iptables performance comparison]({{page.images | relative_url}}/ebpf_packet_filtering_results.png)
+*Packet filtering performance comparison*
+
+Additionally, packet filters can identify any issues that may occur with the transmission of packets, helping to ensure that the network remains operational and that data is transmitted accurately.
+However, no implementations of RT network monitoring systems that focus on OS processes such as packet filtering are currently available.
+
 ## System design
 
 The next figure shows the system design of our real-time network monitoring system as a blackbox.
@@ -61,9 +84,9 @@ The next figure shows the system design of our real-time network monitoring syst
 ![System design]({{page.images | relative_url}}/software_as_blackbox.drawio.png)
 *The monitoring system as a blackbox*
 
-In our approach, the monitoring system is composed of four abstract layers. The first one is the collection layer. This layer collects measurements from the network when new events occur, pre-processes and standardizes them. The second layer is called reporting. In this layer, measurement data are exported after collection and consumed asynchronously by administrative entities through data exporters. The third layer is where data is managed, stored, and measurements are checked for integrity. Lastly, the presentation layer represents how the user interacts with the system.
+In our approach, the monitoring system is composed of four abstract layers following {% cite LEE201484 --file thesis %}'s work. The first one is the collection layer. This layer collects measurements from the network when new events occur, pre-processes and standardizes them. The second layer is called reporting. In this layer, measurement data are exported after collection and consumed asynchronously by administrative entities through data exporters. The third layer is where data is managed, stored, and measurements are checked for integrity. Lastly, the presentation layer represents how the user interacts with the system.
 
-According to [Lee et al.](https://www.sciencedirect.com/science/article/abs/pii/S138912861400111X), It is easier to monitor network through visual representations, rather than through numerical data. This is because it is easier to identify issues and potential problems when they are represented visually. Additionally, it can be helpful to see how data flows through the network, and where congestion for instance is occurring.
+According to {% cite LEE201484 --file thesis %}, It is easier to monitor network through visual representations, rather than through numerical data. This is because it is easier to identify issues and potential problems when they are represented visually. Additionally, it can be helpful to see how data flows through the network, and where congestion for instance is occurring.
 
 ![Sequence Diagram of the monitoring funcionality from data collection to visualization]({{page.images | relative_url}}/services_sequence_diagram.png){:width="80%"}
 *Sequence diagram of the monitoring funcionality from data collection to visualization*
@@ -251,9 +274,14 @@ Although eBPF provides instantaneous responses from the OS, speed is not its pri
 Additionally, eBPF programs detect events earlier and more accurately than traditional approaches, resulting in more accurate information. While eBPF offers better performance overall, it can be difficult to take a proof-of-concept eBPF program and extend it to a more complex program. BCC is one way of making writing eBPF programs easier, but there is still a long way to go before making writing more comprehensive eBPF programs easy.
 
 
-## Reference and links
+## Important links
 
  1. [Code for reproducibility](https://github.com/amrohendawi/RT-network-monitoring-system)
  2. [Full thesis]({{page.documents | relative_url}}/full-thesis.pdf)
  3. [BCC from IO Visor](https://www.iovisor.org/technology/bcc)
  4. [eBPF LSM](https://docs.cilium.io/en/v1.7/bpf/)
+
+
+## References
+
+{% bibliography --file thesis --cited_in_order %}
