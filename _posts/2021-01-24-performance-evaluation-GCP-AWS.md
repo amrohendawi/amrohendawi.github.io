@@ -2,7 +2,7 @@
 title: Which Cloud Service is better? Performance Evaluation of GCP and AWS
 date: 2021-01-24 00:00:00 -500
 categories: [article]
-tags: [gcp, aws, performance, evaluation, benchmark, cloud, cloud-computing, bash, linux, sysbench, python]
+tags: [gcp, aws, evaluation, benchmark, cloud, cloud-computing, sysbench]
 images: /assets/images/performance-evaluation-gcp-aws
 ---
 
