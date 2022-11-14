@@ -289,8 +289,6 @@ This time `AWS` outperforms `GCP` by a significant margin (almost 5X).
 
 ### Disk evaluation
 
-![Memory benchmark results between GCP and AWS]({{page.images | relative_url}}/mem-plot.png){:width="60%"}
-
 SysBench creates a specified number of files with a specified total size at the prepare stage, then at the run stage, each thread performs specified I/O operations on this set of files. If the global –validate option is used with the fileio test mode, SysBench performs checksums validation on all data read from the disk.
 
 Below are two plots of sequential/random disk read benchmark results. The y-axis represents the time it takes to read 1GB of data in milliseconds. Lower is better.
