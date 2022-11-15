@@ -6,16 +6,18 @@ tags: [gcp, aws, openstack, kolla, kolla-ansible, ansible, cloud, cloud service 
 images: /assets/images/deploy-cloud-service-kolla-ansible
 ---
 
+![Openstack logo]({{page.images | relative_url}}/OpenStack-Logo-Vertical.png){:width="30%"}
+![Kolla-ansible]({{page.images | relative_url}}/kolla-ansible.png){:width="20%"}
+
 ## Introduction
 
+As enterprises continue to move more workloads to the cloud, the need for private cloud services that can be deployed on-premises or in a hybrid cloud environment becomes increasingly important. For organizations that want the flexibility and control of a private cloud, but don't want to invest in the hardware and infrastructure required to build and maintain one, kolla-ansible and `openstack` offer an appealing solution.
 
-As enterprises continue to move more workloads to the cloud, the need for private cloud services that can be deployed on-premises or in a hybrid cloud environment becomes increasingly important. For organizations that want the flexibility and control of a private cloud, but don't want to invest in the hardware and infrastructure required to build and maintain one, kolla-ansible and OpenStack offer an appealing solution.
+Kolla-ansible is a tool for deploying `openstack` services on top of an existing infrastructure. It is designed to be easy to use and operate, and can be deployed on a wide variety of platforms, including bare-metal, virtualized, and containerized environments.
 
-Kolla-ansible is a tool for deploying OpenStack services on top of an existing infrastructure. It is designed to be easy to use and operate, and can be deployed on a wide variety of platforms, including bare-metal, virtualized, and containerized environments.
+`openstack` is a popular open source platform for building private and public clouds. It is composed of a number of modular services that can be deployed individually or together to provide a complete cloud solution.
 
-OpenStack is a popular open source platform for building private and public clouds. It is composed of a number of modular services that can be deployed individually or together to provide a complete cloud solution.
-
-In this blog post, we will show you how to use kolla-ansible to deploy a private cloud service using OpenStack. We will assume that you have a basic understanding of Linux and networking, and that you have a server or virtual machine running Ubuntu 18.04.
+In this blog post, we will show you how to use kolla-ansible to deploy a private cloud service using `openstack`. We will assume that you have a basic understanding of Linux and networking, and that you have a server or virtual machine running Ubuntu 18.04.
 
 We will use Google Cloud Platform (GCP) to deploy our cloud service, but the same steps can be used to deploy on other cloud providers, such as Amazon Web Services (AWS).
 
@@ -32,11 +34,9 @@ Before we begin, you will need to have the following:
 ### Step 1: Create a GCP project
 To get started, log in to your GCP account and create a new project. You can do this by clicking on the menu icon in the top left corner of the console, and selecting "New Project".
 
-![GCP New Project](/assets/images/deploy-cloud-service-kolla-ansible/gcp-new-project.png)
+![GCP New Project](https://m2msupport.net/m2msupport/wp-content/uploads/2021/04/gcp_create_new_project_2.png)
 
 Give your project a name, and click "Create".
-
-![GCP Create Project](/assets/images/deploy-cloud-service-kolla-ansible/gcp-create-project.png)
 
 ### Step 2: Create VPC networks
 
@@ -147,7 +147,7 @@ gcloud compute firewall-rules create cc-openstack-tutorial-fw-rule2 --network cc
 
 ### Step 3: Install OpenStack
 
-We will use Ansible and kola-ansible to deploy OpenStack on the 3 previously created virtual machines.
+We will use Ansible and kola-ansible to deploy `openstack` on the 3 previously created virtual machines.
 You can also refer to the steps we are going to execute in the [Kolla-Ansible documentation](https://docs.openstack.org/kolla-ansible/latest/user/quickstart.html).
 
 ##### General requirements:
@@ -172,7 +172,7 @@ You can also refer to the steps we are going to execute in the [Kolla-Ansible do
 
 ##### Deploy OpenStack
 
-To deploy OpenStack, we have prepared a script that will execute the following steps:
+To deploy `openstack`, we have prepared a script that will execute the following steps:
 
 1. cd into your working directory.
 2. To verify that ansible is setup correctly and the VMs are reachable run
@@ -192,22 +192,22 @@ To deploy OpenStack, we have prepared a script that will execute the following s
     > - `tee` removes colours from the ansible output. For initial testing and possible debugging, you can remove the piping into `tee`. Add it again when generating logs for final submission.
     > - Do not be afraid to tear everything down and redeploy it. Remember to work with checkpoints.
     {: .prompt-tip }
-4. Check the public IP address of the controller VM via your browser. It should display the OpenStack login landing page. If not, check your firewall rules.
+4. Check the public IP address of the controller VM via your browser. It should display the `openstack` login landing page. If not, check your firewall rules.
 
-Congratulations! You have successfully deployed OpenStack on 3 VMs and became officially a cloud provider.
+Congratulations! You have successfully deployed `openstack` on 3 VMs and became officially a cloud provider.
 
 ### Step 4: Configure OpenStack
 
-To make sure that OpenStack is working properly, follow the steps below:
+To make sure that `openstack` is working properly, follow the steps below:
 
 1. Activate the previous python3 virtual environment on your local machine and install the (openstack CLI client)[https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-command-line-clients.html].
-2. Get the keystone_admin_password value from passwords.yml to login via the OpenStack dashboard (user is "admin").
+2. Get the keystone_admin_password value from passwords.yml to login via the `openstack` dashboard (user is "admin").
 3. Download the **admin-openrc.sh** file (upper right drop-down menu) and place it into you working directory.
 4. Use source **admin-openrc.sh** to set environment variables that are used for authentication.
     > **Hint:**
     > You can adjust the admin-openrc.sh file to prevent repeated password input.
     {: .prompt-tip }
-5. Test if the openstack CLI is working: openstack host list. It must work. If not, check the firewall rules.
+5. Test if the `openstack` CLI is working: `openstack` host list. It must work. If not, check the firewall rules.
 6. Run the scripts **import-images.sh** and **create-ext-network.sh**
     - Depending on the network connection of your local machine, the image upload might take a while.
     - To prevent additional steps, we will use Ubuntu16.04. Images of newer versions need adjustment when using them with nested virtualization.
@@ -257,7 +257,7 @@ To make sure that OpenStack is working properly, follow the steps below:
 
 ## Performance Evaluation
 
-<!-- To evaluate the performance of your OpenStack deployment, we will follow the same methodology as in [this blog]({% link _posts/2021-01-24-performance-evaluation-GCP-AWS.md %}) -->
+To evaluate the performance of your OpenStack deployment, we will follow the same methodology as in [this blog]({% link _posts/2021-01-24-performance-evaluation-GCP-AWS.md %})
 
 ![Demo]({{page.images | relative_url}}/diskRand-plot.png)|![Demo]({{page.images | relative_url}}/diskSeq-plot.png)
 *Random disk read benchmark results.* | *Sequential disk read benchmark results.*
@@ -265,7 +265,7 @@ To make sure that OpenStack is working properly, follow the steps below:
 ![Demo]({{page.images | relative_url}}/cpu-plot.png)|![Demo]({{page.images | relative_url}}/mem-plot.png)
 *CPU benchmark results.* | *Memory benchmark results.*
 
-As we can see, the benchmark results of our Openstack are comparable to the results of the other cloud providers. The CPU benchmark results are slightly lower than the other cloud providers. This is due to the fact that the VMs are not dedicated to the OpenStack deployment. The memory benchmark results are slightly higher than the other cloud providers. This is due to the fact that the VMs are not dedicated to the OpenStack deployment.
+As we can see, the benchmark results of our `openstack` are comparable to the results of the other cloud providers. The CPU benchmark results are slightly lower than the other cloud providers. This is due to the fact that the VMs are not dedicated to the `openstack` deployment. The memory benchmark results are slightly higher than the other cloud providers. This is due to the fact that the VMs are not dedicated to the `openstack` deployment.
 
-We also notice higher volatility in the benchmark results. This is due to the fact that the VMs are not dedicated to the OpenStack deployment. The VMs are shared with other users and the performance is not guaranteed.
+We also notice higher volatility in the benchmark results. This is due to the fact that the VMs are not dedicated to the `openstack` deployment. The VMs are shared with other users and the performance is not guaranteed.
 
