@@ -257,7 +257,7 @@ To make sure that OpenStack is working properly, follow the steps below:
 
 ## Performance Evaluation
 
-To evaluate the performance of your OpenStack deployment, we will follow the same methodology as in [this blog]({% link _posts/2021-01-24-performance-evaluation-GCP-AWS.md %})
+<!-- To evaluate the performance of your OpenStack deployment, we will follow the same methodology as in [this blog]({% link _posts/2021-01-24-performance-evaluation-GCP-AWS.md %}) -->
 
 ![Demo]({{page.images | relative_url}}/diskRand-plot.png)|![Demo]({{page.images | relative_url}}/diskSeq-plot.png)
 *Random disk read benchmark results.* | *Sequential disk read benchmark results.*
