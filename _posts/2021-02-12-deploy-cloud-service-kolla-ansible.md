@@ -6,8 +6,9 @@ tags: [gcp, aws, openstack, kolla, kolla-ansible, ansible, cloud, cloud service 
 images: /assets/images/deploy-cloud-service-kolla-ansible
 ---
 
-![Openstack logo]({{page.images | relative_url}}/OpenStack-Logo-Vertical.png){:width="30%"}
-![Kolla-ansible]({{page.images | relative_url}}/kolla-ansible.png){:width="20%"}
+![Openstack logo]({{page.images | relative_url}}/OpenStack-Logo-Vertical.png){:width="30%"}{:style="left: 18%"}
+![Kolla-ansible]({{page.images | relative_url}}/kolla-ansible.png){:width="20%"}{:style="left: 22%"}
+![GCP]({{page.images | relative_url}}/gcp.png){:width="20%"}{:style="left: 26%"}
 
 ## Introduction
 
