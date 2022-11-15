@@ -102,5 +102,5 @@ The model is trained for 4 epochs with a batch size of 64. The model is trained 
 
 ## References
 
-[Source code](https://github.com/amrohendawi/recommender_BERT4Rec)
-[BERT4Rec: Sequential Recommendation with Bidirectional Encoder Representations from Transformer](https://arxiv.org/abs/1904.06690)
+- [Source code](https://github.com/amrohendawi/recommender_BERT4Rec)
+- [BERT4Rec: Sequential Recommendation with Bidirectional Encoder Representations from Transformer](https://arxiv.org/abs/1904.06690)
