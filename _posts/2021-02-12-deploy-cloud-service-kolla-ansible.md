@@ -1,7 +1,7 @@
 ---
 title: Deploy your own private cloud service provider with kolla-ansible
 date: 2021-02-12 00:00:00 -500
-categories: [article]
+categories: [tutorial]
 tags: [gcp, aws, openstack, kolla, kolla-ansible, ansible, cloud, cloud service provider, cloud service, playbooks]
 images: /assets/images/deploy-cloud-service-kolla-ansible
 ---
