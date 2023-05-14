@@ -1,4 +1,6 @@
---- --- @import "{{ site.theme }}";
+---
+---
+@import "{{ site.theme }}";
 
 html[data-mode=light] {
     --link-color: hsl(155, 43%, 38%);
