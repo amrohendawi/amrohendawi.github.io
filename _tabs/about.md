@@ -4,40 +4,115 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-I'm Amro Hendawi, an M.Sc. computer engineer and a full-stack software engineer. I'm a passionate developer who loves to learn new technologies and apply them to solve real-world problems. I'm also a big fan of open-source software and I'm always looking for new ways to contribute to the community.
+## About Me
 
-My core skills are:
+I'm Amro Hendawi, an M.Sc. computer engineer and a Machine Learning Engineer. With a strong foundation in Python, Java, and JavaScript/TypeScript, I bring a comprehensive understanding of cutting-edge technologies and industry best practices to my work.
 
-- Project management
+## Core Competencies
+
+- Project Management
 - AI and Natural Language Processing (NLP)
-- Full-stack web development
-- DevOps
+- Cloud Computing & DevOps
+- Building scalable and high-performance systems
+- Data analysis and visualization
+- Scrum and Agile methodologies
 
-I speak `Arabic`, `English`, `German`, `Turkish` and `French`.
+## Languages
 
-Technologies I'm experienced with:
+| Language | Proficiency |
+| -------- | ----------- |
+| Arabic   | Native      |
+| English  | Fluent      |
+| German   | Fluent      |
+| Turkish  | Fluent      |
+| French   | Intermediate|
 
-#### DevOps & Cloud
+## Certifications
 
-`Grafana`, `Prometheus`, `Docker`, `Kubernetes`, `AWS`, `GCP`, `Azure`, `Ansible`, `Linux`, `Git`, `Apache Flink`, `Bash`, `OpenStack`
+| Certification Name | Issuing Authority | Year |
+| ------------------ | ----------------- | ---- |
+| `Certified Kubernetes Application Developer (CKAD)` | The Linux Foundation | 2024 |
+| `AWS Certified Solutions Architect – Associate (SAA-C03)` | Amazon Web Services (AWS) | 2023 |
+| `Azure AZ-900` | Microsoft Azure | 2024 |
+| `AI Workflow: Feature Engineering and Bias Detection` | IBM | 2023 |
+| `Google Project Management` | Google | 2022 |
 
 
-#### Web Development
+## Skills
 
-`React`, `Node.js`, `Express`, `WordPress`, `JavaScript`, `HTML`, `CSS`, `Sass`, `Bootstrap`, `Webpack`, `Babel`, `Vue.js`, `Django`, `Swagger`, `FastAPI`, `Dash`, `Plotly`, `Steramlit`
-
-#### AI & NLP
+### AI & NLP
 
 `Transformers`, `BERT`, `SpaCy`, `ParlAI`, `Rasa`, `PyTorch`, `TensorFlow`, `NLTK`, `Gensim`, `Scikit-learn`, `Pandas`, `NumPy`, `Matplotlib`, `Seaborn`, `Plotly`, `Recommender Systems`, `Deep Learning`, `Data Analysis`, `Data Visualization`
 
-#### Databases
+### Semantic Search
 
-`MongoDB`, `MySQL`, `PostgreSQL`
+`ElasticSearch`, `Word2Vec`, `FastText`, `BERT`, `FAISS`, `T5`
 
-#### Semantic Search
+### Language Models & Chatbots
+- Multi-agent Conversational AIs
+- Retrieval-agumented-generation models
+- Finetuning LLMs: LoRa, 
+- LLM application tools: Langchain, LlamaIndex, 
 
-`Elastic Search`, `Word2Vec`, `FastText`, `S-BERT`, `FAISS`, `T5`
 
-#### Backend
+### Deep Learning
 
-`Python`, `Java`, `C++`, `C#`, `C`, `NginX`, `Apache Camel`, `Windows Containers`, `WSL`, `Bash`, `Qemu`, `KVM`
+- `Libraries`: Transformers, PyTorch, TensorFlow, Keras
+- `Model architectures`: CNNs, RNNs, LSTMs, Transformers, Encoder-Decoder
+
+### Natural Language Processing
+
+### Semantic Search
+
+- `Tools`: ElasticSearch, Word2Vec, FastText, FAISS
+- `Clustering Algorithms:` K-Means, DBSCAN, Louvain
+- `Text Representation` : TF-IDF, One-Hot Encoding, Bag of Words, Word Embeddings
+
+##### Language Models & Chatbots
+
+- Multi-agent Conversational AIs: ParlAI, Rasa, Vertex AI
+- `Retrieval-Agumented-Generation:` FAISS, QDrant, Pinecone, LlamaIndex
+- Finetuning LLMs: LoRa
+- `Foundation Models:` BERT, T5, Mistral, Llama
+- `Prompt Engineering:` P-tuning, P-POKE, P-R
+- `LLM workflow tools:` Langchain, LlamaIndex, Flowise, Parea AI, Hugging Face, Ollama
+
+##### Text Processing Libraries
+
+- `SpaCy`
+- `NLTK`
+- `Gensim`
+- `FastText`
+
+#### Recommender Systems
+
+- `BERT4Rec`
+
+#### Data Analysis and Visualization
+
+- `Pandas`
+- `NumPy`
+- `Matplotlib`
+- `Seaborn`
+- `Plotly`
+
+### Cloud Computing
+
+`AWS`, `GCP`, `Azure`, `Kubernetes`, `Docker`, `Ansible`, `OpenStack`, `Apache Flink`, `Terraform`
+
+### DevOps
+`Grafana`, `Prometheus`, `Splunk`, `Crypress`, `Git`, `CI-CD`, `JFrog Artifactory`, `SonarQube`, `Jira`, `Confluence`
+
+### Databases
+
+`MongoDB`, `MySQL`, `PostgreSQL`, `SupaBase`, `Redis`, `InfluxDB`, `Liquibase`
+
+### Web Development
+
+`Next.js`, `React`, `Vue.js`, `Dash`, `Plotly`, `Streamlit`
+
+### Backend
+`Spring Boot`, `Flask`, `FastAPI`, `Node.js`, `Express.js`
+
+### Testing & QA
+`Cypress`, `Selenium`, `JUnit`, `Mockito`, `TestContainers`
